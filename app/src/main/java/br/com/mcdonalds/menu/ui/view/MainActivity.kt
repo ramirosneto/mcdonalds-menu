@@ -1,13 +1,13 @@
-package br.com.mcdonalds.menu
+package br.com.mcdonalds.menu.ui.view
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import br.com.mcdonalds.menu.R
 import br.com.mcdonalds.menu.data.model.Restaurant
 import br.com.mcdonalds.menu.databinding.ActivityMainBinding
-import br.com.mcdonalds.menu.ui.view.MenuItemView
 import br.com.mcdonalds.menu.ui.viewmodel.MenuViewModel
 import br.com.mcdonalds.utils.NetworkStatus
 import org.koin.androidx.viewmodel.ext.android.viewModel
