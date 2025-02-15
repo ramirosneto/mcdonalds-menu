@@ -1,77 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/collapse_icon"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:src="@drawable/ic_bottom_sheet_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/collapse_icon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:src="@drawable/ic_bottom_sheet_line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/menu_item_img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/menu_item_detail_image_height"
+        android:layout_marginTop="@dimen/normal_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/collapse_icon"
+        tools:srcCompat="@drawable/ic_mcdonalds_logo" />
 
-        <ImageView
-            android:id="@+id/menu_item_img"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_item_detail_image_height"
-            android:layout_marginTop="@dimen/normal_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/collapse_icon"
-            tools:srcCompat="@drawable/ic_mcdonalds_logo" />
+    <TextView
+        android:id="@+id/menu_item_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/huge_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/big_font_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_item_img"
+        tools:text="Bacon, Egg &amp; Cheese Biscuit" />
 
-        <TextView
-            android:id="@+id/menu_item_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/huge_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/big_font_size"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_item_img"
-            tools:text="Bacon, Egg &amp; Cheese Biscuit" />
+    <TextView
+        android:id="@+id/menu_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/big_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:background="@drawable/bg_price_tag"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/big_margin"
+        android:paddingVertical="@dimen/small_margin"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_item_text"
+        tools:text="$10" />
 
-        <TextView
-            android:id="@+id/menu_item_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/big_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:background="@drawable/bg_price_tag"
-            android:gravity="center"
-            android:paddingHorizontal="@dimen/big_margin"
-            android:paddingVertical="@dimen/small_margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/normal_font_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_item_text"
-            tools:text="$10" />
-
-        <TextView
-            android:id="@+id/menu_item_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/big_margin"
-            android:layout_marginTop="@dimen/normal_margin"
-            android:gravity="center"
-            android:paddingBottom="@dimen/big_margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/normal_font_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menu_item_price"
-            tools:text="The McDonald's Bacon, Egg &amp; Cheese Biscuit breakfast sandwich features a warm, buttermilk biscuit brushed with real butter, thick cut Applewood smoked bacon, a fluffy folded egg, and a slice of melty American cheese. There are 460 calories in a Bacon, Egg &amp; Cheese Biscuit at McDonald's. Try one today with a Premium Roast Coffee and order with Mobile Order &amp; Pay on the McDonald's App!" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <TextView
+        android:id="@+id/menu_item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/big_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:gravity="center"
+        android:paddingBottom="@dimen/big_margin"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_item_price"
+        tools:text="The McDonald's Bacon, Egg &amp; Cheese Biscuit breakfast sandwich features a warm, buttermilk biscuit brushed with real butter, thick cut Applewood smoked bacon, a fluffy folded egg, and a slice of melty American cheese. There are 460 calories in a Bacon, Egg &amp; Cheese Biscuit at McDonald's. Try one today with a Premium Roast Coffee and order with Mobile Order &amp; Pay on the McDonald's App!" />
+</androidx.constraintlayout.widget.ConstraintLayout>

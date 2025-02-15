@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.mcdonalds.menu.R
-import br.com.mcdonalds.menu.data.model.MenuItem
+import br.com.mcdonalds.menu.model.MenuItem
 import br.com.mcdonalds.menu.databinding.ModalBottomSheetContentBinding
 import br.com.mcdonalds.menu.utils.CurrencyUtils
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,10 +24,6 @@ class MenuItemBottomSheet(private val menuItem: MenuItem) : BottomSheetDialogFra
         setupBottomSheet()
 
         return binding.root
-    }
-
-    override fun getTheme(): Int {
-        return R.style.BottomSheetDialogTheme
     }
 
     private fun setupBottomSheet() {

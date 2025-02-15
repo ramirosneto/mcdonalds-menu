@@ -1,9 +1,9 @@
 package br.com.mcdonalds.menu.di
 
 import br.com.mcdonalds.menu.BuildConfig
-import br.com.mcdonalds.menu.data.api.MenuRepository
-import br.com.mcdonalds.menu.data.api.MenuService
-import br.com.mcdonalds.menu.ui.viewmodel.MenuViewModel
+import br.com.mcdonalds.menu.repository.RestaurantRepository
+import br.com.mcdonalds.menu.repository.RestaurantService
+import br.com.mcdonalds.menu.viewmodel.MenuViewModel
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -22,15 +22,15 @@ object MenuModule {
     private const val READ_TIMEOUT = 20L
 
     val instance = module {
-        single(createdAtStart = false) { get<Retrofit>().create(MenuService::class.java) }
+        factory { get<Retrofit>().create(RestaurantService::class.java) }
 
-        single { GsonBuilder().create() }
+        factory { GsonBuilder().create() }
 
-        single { retrofitHttpClient() }
+        factory { retrofitHttpClient() }
 
-        single { retrofitBuilder() }
+        factory { retrofitBuilder() }
 
-        single {
+        factory {
             Interceptor { chain ->
                 chain.proceed(chain.request().newBuilder().apply {
                     header("Accept", "application/json")
@@ -38,7 +38,7 @@ object MenuModule {
             }
         }
 
-        single { MenuRepository(get()) }
+        factory { RestaurantRepository(get()) }
 
         viewModel { MenuViewModel(get()) }
     }

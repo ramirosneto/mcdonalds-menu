@@ -1,4 +1,4 @@
-package br.com.mcdonalds.menu.data.model
+package br.com.mcdonalds.menu.model
 
 data class MenuItem(
     val description: String,

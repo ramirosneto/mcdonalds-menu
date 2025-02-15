@@ -1,6 +1,7 @@
-package br.com.mcdonalds.menu.data.api
+package br.com.mcdonalds.menu.data.repository
 
 import br.com.mcdonalds.menu.BuildConfig
+import br.com.mcdonalds.menu.repository.RestaurantService
 import com.google.gson.Gson
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.runBlocking
@@ -13,10 +14,10 @@ import org.mockito.MockitoAnnotations
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MenuServiceTest {
+class RestaurantServiceTest {
 
     private lateinit var mockWebServer: MockWebServer
-    private lateinit var apiService: MenuService
+    private lateinit var apiService: RestaurantService
     private lateinit var gson: Gson
 
     @Before
@@ -27,7 +28,7 @@ class MenuServiceTest {
         apiService = Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .build().create(MenuService::class.java)
+            .build().create(RestaurantService::class.java)
     }
 
     @Test
@@ -35,7 +36,7 @@ class MenuServiceTest {
         runBlocking {
             val mockResponse = MockResponse()
             mockWebServer.enqueue(mockResponse.setBody("[]"))
-            val response = apiService.getRestaurants()
+            val response = apiService.getRestaurant()
             assertNotNull(response)
         }
     }

@@ -6,12 +6,11 @@ plugins {
 android {
     namespace = "br.com.mcdonalds.menu"
 
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.com.mcdonalds.menu"
         minSdk = 21
-        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -37,9 +36,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildFeatures {
         buildConfig = true
         compose = true
+        viewBinding = true
     }
 
     composeOptions {
@@ -72,6 +76,8 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.picasso)
     implementation(libs.shimmer)
+    implementation(libs.material)
+    implementation(libs.coil)
 
     testImplementation(libs.androidx.arch.core)
     testImplementation(libs.junit)

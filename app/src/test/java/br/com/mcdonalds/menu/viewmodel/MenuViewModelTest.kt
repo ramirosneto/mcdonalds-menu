@@ -2,10 +2,9 @@ package br.com.mcdonalds.menu.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import br.com.mcdonalds.menu.data.api.MenuRepository
-import br.com.mcdonalds.menu.data.api.MenuService
-import br.com.mcdonalds.menu.data.model.Restaurant
-import br.com.mcdonalds.menu.ui.viewmodel.MenuViewModel
+import br.com.mcdonalds.menu.repository.RestaurantRepository
+import br.com.mcdonalds.menu.repository.RestaurantService
+import br.com.mcdonalds.menu.model.Restaurant
 import br.com.mcdonalds.menu.utils.TestCoroutineRule
 import br.com.mcdonalds.utils.NetworkStatus
 import io.mockk.mockk
@@ -32,19 +31,19 @@ class MenuViewModelTest {
     val testCoroutineRule = TestCoroutineRule()
 
     @Mock
-    private lateinit var service: MenuService
+    private lateinit var service: RestaurantService
 
     @Mock
     private lateinit var observer: Observer<NetworkStatus>
 
-    private lateinit var repository: MenuRepository
+    private lateinit var repository: RestaurantRepository
     private lateinit var viewModel: MenuViewModel
 
     @Before
     @Throws(Exception::class)
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-        repository = MenuRepository(service)
+        repository = RestaurantRepository(service)
         viewModel = MenuViewModel(repository)
     }
 
@@ -53,7 +52,7 @@ class MenuViewModelTest {
         val response: Restaurant = mockk(relaxed = true)
         testCoroutineRule.runBlockingTest {
             viewModel.progressLiveStatus.observeForever(observer)
-            `when`(repository.getMenu()).thenReturn(response)
+            `when`(repository.getRestaurant()).thenReturn(response)
 
             viewModel.getMenu()
             assertNotNull(viewModel.getMenu())
