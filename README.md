@@ -6,6 +6,7 @@ This project is a native Android application designed to demonstrate the McDonal
 
 - 100% Kotlin
 - MVVM architecture
+- Flow
 - Koin (DI)
 - Jetpack Compose
 - Retrofit

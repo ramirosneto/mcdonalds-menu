@@ -8,7 +8,7 @@ object CurrencyUtils {
     @SuppressLint("NewApi")
     fun formatPrice(price: Double): String {
         val numberFormat = NumberFormat.getCurrencyInstance()
-        numberFormat.maximumFractionDigits = 2;
+        numberFormat.maximumFractionDigits = 2
         return numberFormat.format(price)
     }
 }

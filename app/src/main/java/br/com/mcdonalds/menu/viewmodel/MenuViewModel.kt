@@ -1,39 +1,25 @@
 package br.com.mcdonalds.menu.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.mcdonalds.menu.model.Restaurant
-import br.com.mcdonalds.menu.repository.RestaurantRepository
-import kotlinx.coroutines.Dispatchers
+import br.com.mcdonalds.menu.repository.MenuRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class MenuViewModel(private val repository: RestaurantRepository) : ViewModel() {
+class MenuViewModel(private val repository: MenuRepository) : ViewModel() {
 
-    var state by mutableStateOf(ScreenState())
+    private val _menu = MutableStateFlow<Restaurant?>(null)
+    val menu: StateFlow<Restaurant?> get() = _menu
 
     init {
+        fetchMenu()
+    }
+
+    private fun fetchMenu() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                try {
-                    val result = repository.getRestaurant()
-                    state = state.copy(
-                        restaurant = result
-                    )
-                } catch (throwable: Throwable) {
-                    state = state.copy(
-                        error = throwable.message
-                    )
-                }
-            }
+            _menu.value = repository.getRestaurant()
         }
     }
 }
-
-data class ScreenState(
-    val restaurant: Restaurant? = null,
-    val error: String? = null
-)

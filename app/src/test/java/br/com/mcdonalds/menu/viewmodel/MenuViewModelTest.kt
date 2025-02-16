@@ -1,61 +1,91 @@
 package br.com.mcdonalds.menu.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import br.com.mcdonalds.menu.repository.RestaurantRepository
-import br.com.mcdonalds.menu.repository.RestaurantService
+import br.com.mcdonalds.menu.model.Menu
+import br.com.mcdonalds.menu.model.MenuItem
+import br.com.mcdonalds.menu.model.OperationDay
 import br.com.mcdonalds.menu.model.Restaurant
-import br.com.mcdonalds.menu.utils.TestCoroutineRule
-import br.com.mcdonalds.utils.NetworkStatus
-import io.mockk.mockk
-import junit.framework.Assert.assertNotNull
+import br.com.mcdonalds.menu.repository.MenuRepository
+import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
-import org.junit.runner.RunWith
-import org.mockito.Mock
+import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
-import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-@RunWith(MockitoJUnitRunner::class)
 class MenuViewModelTest {
 
     @get:Rule
-    val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
+    var rule: TestRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    val testCoroutineRule = TestCoroutineRule()
-
-    @Mock
-    private lateinit var service: RestaurantService
-
-    @Mock
-    private lateinit var observer: Observer<NetworkStatus>
-
-    private lateinit var repository: RestaurantRepository
+    private lateinit var repository: MenuRepository
     private lateinit var viewModel: MenuViewModel
 
+    private val testDispatcher = UnconfinedTestDispatcher()
+
     @Before
-    @Throws(Exception::class)
     fun setUp() {
-        MockitoAnnotations.openMocks(this)
-        repository = RestaurantRepository(service)
+        Dispatchers.setMain(testDispatcher)
+        repository = mock(MenuRepository::class.java)
         viewModel = MenuViewModel(repository)
     }
 
-    @Test
-    fun `WHEN fetching menu ok THEN return an object successfully`() {
-        val response: Restaurant = mockk(relaxed = true)
-        testCoroutineRule.runBlockingTest {
-            viewModel.progressLiveStatus.observeForever(observer)
-            `when`(repository.getRestaurant()).thenReturn(response)
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
 
-            viewModel.getMenu()
-            assertNotNull(viewModel.getMenu())
-        }
+    @Test
+    fun `fetchMenu should update menu LiveData`() = runTest {
+        val testMenu = Restaurant(
+            currency = "USD",
+            description = "Test Description",
+            id = "1",
+            location = mock(),
+            menus = listOf(
+                Menu(
+                    name = "Breakfast",
+                    items = listOf(
+                        MenuItem(
+                            name = "Egg McMuffin",
+                            description = "description",
+                            price = 3.5,
+                            url = "mcdonalds.com"
+                        ),
+                        MenuItem(
+                            name = "Sausage McMuffin",
+                            description = "description",
+                            price = 3.0,
+                            url = "mcdonalds.com"
+                        )
+                    )
+                )
+            ),
+            name = "McDonald's",
+            operationDays = listOf(
+                OperationDay(day = "Monday", endAt = "06:00", startAt = "23:00")
+            ),
+            phone = "123-456-7890",
+            privateParking = true
+        )
+
+        `when`(repository.getRestaurant()).thenReturn(testMenu)
+
+        viewModel.menu
+
+        advanceUntilIdle()
+
+        val result = viewModel.menu.value
+        assertEquals(testMenu, result)
     }
 }

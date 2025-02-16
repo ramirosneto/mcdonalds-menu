@@ -3,7 +3,9 @@ package br.com.mcdonalds.menu.utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineExceptionHandler
 import kotlinx.coroutines.test.TestCoroutineScope
+import kotlinx.coroutines.test.createTestCoroutineScope
 import kotlinx.coroutines.test.setMain
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -15,7 +17,8 @@ class TestCoroutineRule : TestRule {
 
     private val testCoroutineDispatcher = TestCoroutineDispatcher()
 
-    private val testCoroutineScope = TestCoroutineScope(testCoroutineDispatcher)
+    private val testCoroutineScope =
+        createTestCoroutineScope(TestCoroutineDispatcher() + TestCoroutineExceptionHandler() + testCoroutineDispatcher)
 
     override fun apply(base: Statement, description: org.junit.runner.Description?) =
         object : Statement() {

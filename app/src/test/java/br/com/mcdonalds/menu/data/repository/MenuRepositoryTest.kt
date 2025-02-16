@@ -1,9 +1,8 @@
 package br.com.mcdonalds.menu.data.repository
 
 import br.com.mcdonalds.menu.model.Restaurant
-import br.com.mcdonalds.menu.repository.RestaurantRepository
-import br.com.mcdonalds.menu.repository.RestaurantService
-import io.mockk.mockk
+import br.com.mcdonalds.menu.repository.ApiService
+import br.com.mcdonalds.menu.repository.MenuRepository
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -12,27 +11,28 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 
 @RunWith(JUnit4::class)
-class RestaurantRepositoryTest {
+class MenuRepositoryTest {
 
-    lateinit var repository: RestaurantRepository
+    lateinit var repository: MenuRepository
 
     @Mock
-    lateinit var service: RestaurantService
+    lateinit var service: ApiService
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        repository = RestaurantRepository(service)
+        repository = MenuRepository(service)
     }
 
     @Test
     fun `get menu test`() {
         runBlocking {
-            val restaurantMock : Restaurant = mockk(relaxed = true)
-            Mockito.`when`(service.getRestaurant()).thenReturn(restaurantMock)
+            val restaurantMock: Restaurant = mock()
+            Mockito.`when`(service.getMenu()).thenReturn(restaurantMock)
             val response = repository.getRestaurant()
             assertEquals(restaurantMock, response)
         }
