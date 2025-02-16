@@ -2,6 +2,7 @@ package br.com.mcdonalds.menu.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,7 +52,9 @@ fun McDonaldsMenuApp(viewModel: MenuViewModel) {
 
 @Composable
 fun ShimmerEffect() {
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(
+        modifier = Modifier.padding(16.dp)
+    ) {
         repeat(5) {
             Box(
                 modifier = Modifier
@@ -66,7 +69,9 @@ fun ShimmerEffect() {
 @Composable
 fun MainScreen(menuList: List<Menu>) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
