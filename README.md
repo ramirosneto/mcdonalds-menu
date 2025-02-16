@@ -33,6 +33,7 @@ This project is a native Android application designed to demonstrate the McDonal
     ```
 2. Open the project in Android Studio.
 3. Build and run the project.
+4. Enjoy and be free to propose new features ;)
 
 ## Usage
 
